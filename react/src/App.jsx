@@ -4,8 +4,8 @@ function App() {
 
   return (
     <>
-      <div>
-        App.jsx!
+      <div className='bg-yellow-300'>
+        App.jsx!!
       </div>      
       
     </>
