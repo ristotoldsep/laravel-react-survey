@@ -5,7 +5,8 @@ import {
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Navigate, Outlet } from "react-router-dom";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const navigation = [
   { name: "Dashboard", to: "/" },
@@ -17,12 +18,18 @@ function classNames(...classes) {
 }
 
 export default function DefaultLayout() {
-
+  const { currentUser, userToken, setCurrentUser, setUserToken } = useStateContext()
+  
+  if(!userToken) {
+    return <Navigate to='login' />
+  }
 
   const logout = (ev) => {
     ev.preventDefault();
     console.log('Logout');
   };
+
+
 
   return (
     <>
@@ -143,10 +150,10 @@ export default function DefaultLayout() {
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-white">
-                        {/* {currentUser.name} */}
+                        {currentUser.name}
                       </div>
                       <div className="text-sm font-medium leading-none text-gray-400">
-                        {/* {currentUser.email} */}
+                        {currentUser.email}
                       </div>
                     </div>
                   </div>
