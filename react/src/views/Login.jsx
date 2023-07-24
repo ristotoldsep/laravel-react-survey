@@ -1,36 +1,39 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axiosClient from "../axios";
+import { useStateContext } from "../contexts/ContextProvider";
 
 export default function Login() {
+  const { setCurrentUser, setUserToken } = useStateContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ __html: "" });
 
-//   const onSubmit = (ev) => {
-//     ev.preventDefault();
-//     setError({ __html: "" });
+  const onSubmit = (ev) => {
+    ev.preventDefault();
+    setError({ __html: "" });
 
-//     axiosClient
-//       .post("/login", {
-//         email,
-//         password,
-//       })
-//       .then(({ data }) => {
-//         setCurrentUser(data.user);
-//         setUserToken(data.token);
-//       })
-//       .catch((error) => {
-//         if (error.response) {
-//           const finalErrors = Object.values(error.response.data.errors).reduce(
-//             (accum, next) => [...accum, ...next],
-//             []
-//           );
-//           setError({ __html: finalErrors.join("<br>") });
-//         }
-//         console.error(error);
-//       });
-//   };
+    axiosClient
+      .post("/login", {
+        email,
+        password,
+      })
+      .then(({ data }) => {
+        setCurrentUser(data.user);
+        setUserToken(data.token);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const finalErrors = Object.values(error.response.data.errors).reduce(
+            (accum, next) => [...accum, ...next],
+            []
+          );
+          setError({ __html: finalErrors.join("<br>") });
+        }
+        console.error(error);
+      });
+  };
 
   return (
     <>
@@ -51,10 +54,11 @@ export default function Login() {
         <div
           className="bg-red-500 rounded py-2 px-3 text-white"
           dangerouslySetInnerHTML={error}
+          
         ></div>
       )}
 
-      <form onSubmit={() => {}} className="mt-8 space-y-6" action="#" method="POST">
+      <form onSubmit={onSubmit} className="mt-8 space-y-6" action="#" method="POST">
         <input type="hidden" name="remember" defaultValue="true" />
         <div className="-space-y-px rounded-md shadow-sm">
           <div>

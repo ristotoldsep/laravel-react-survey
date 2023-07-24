@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { NavLink, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
+import axiosClient from "../axios";
 
 const navigation = [
   { name: "Dashboard", to: "/" },
@@ -26,7 +27,12 @@ export default function DefaultLayout() {
 
   const logout = (ev) => {
     ev.preventDefault();
-    console.log('Logout');
+    
+    axiosClient.post('/logout')
+      .then((res) => {
+        setCurrentUser({});
+        setUserToken(null);
+      });
   };
 
 

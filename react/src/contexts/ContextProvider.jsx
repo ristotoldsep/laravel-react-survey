@@ -189,14 +189,23 @@ const tmpSurveys = [
 
 export const ContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState({
-        name: "Ricoboy",
-        email: "ricoboy@gmail.com",
-        imageUrl:
-            "https://d33wubrfki0l68.cloudfront.net/b58b4086e25febc9a4a1e7c1a015850e8031ea3b/6061d/images/risto.webp",
+        // name: "Ricoboy",
+        // email: "ricoboy@gmail.com",
+        // imageUrl:
+        //     "https://d33wubrfki0l68.cloudfront.net/b58b4086e25febc9a4a1e7c1a015850e8031ea3b/6061d/images/risto.webp",
     });
-    const [userToken, setUserToken] = useState('1234');
+    const [userToken, _setUserToken] = useState(localStorage.getItem('TOKEN') || '');
 
     const [surveys, setSurveys] = useState(tmpSurveys);
+ 
+    const setUserToken = (token) => {
+        if (token) {
+            localStorage.setItem('TOKEN', token); 
+        } else {
+                localStorage.removeItem('TOKEN');
+        }
+        _setUserToken(token);
+    }
 
     return (
         <StateContext.Provider

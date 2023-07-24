@@ -1,39 +1,42 @@
 import { Link } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
+import axiosClient from "../axios";
+import { useStateContext } from "../contexts/ContextProvider";
 
 export default function Signup() {
+  const { setCurrentUser, setUserToken } = useStateContext();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [error, setError] = useState({ __html: "" });
 
-//   const onSubmit = (ev) => {
-//     ev.preventDefault();
-//     setError({ __html: "" });
+  const onSubmit = (ev) => {
+    ev.preventDefault();
+    setError({ __html: "" });
 
-
-//     axiosClient
-//       .post("/signup", {
-//         name: fullName,
-//         email,
-//         password,
-//         password_confirmation: passwordConfirmation,
-//       })
-//       .then(({ data }) => {
-//         setCurrentUser(data.user)
-//         setUserToken(data.token)
-//       })
-//       .catch((error) => {
-//         if (error.response) {
-//           const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], [])
-//           console.log(finalErrors)
-//           setError({__html: finalErrors.join('<br>')})
-//         }
-//         console.error(error)
-//       });
-//   };
+    axiosClient.post("/signup", {
+        name: fullName,
+        email,
+        password,
+        password_confirmation: passwordConfirmation,
+      })
+      .then(({ data }) => {
+        console.log(
+          data
+        );
+        setCurrentUser(data.user)
+        setUserToken(data.token)
+      })
+      .catch((error) => {
+        if (error.response) {
+          const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], [])
+          console.log(finalErrors)
+          setError({__html: finalErrors.join('<br>')})
+        }
+      });
+  };
 
   return (
     <>
@@ -54,7 +57,7 @@ export default function Signup() {
       </div>)}
 
       <form
-        onSubmit={() => {}}
+        onSubmit={onSubmit}
         className="mt-8 space-y-6"
         action="#"
         method="POST"
@@ -137,7 +140,7 @@ export default function Signup() {
                 aria-hidden="true"
               />
             </span>
-            Signup
+            Sign up
           </button>
         </div>
       </form>

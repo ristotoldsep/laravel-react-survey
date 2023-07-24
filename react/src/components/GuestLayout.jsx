@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
+import Logo from '../assets/rtlogo.webp'
 
 export default function GuestLayout() {
   const { userToken } = useStateContext();
@@ -14,8 +15,8 @@ export default function GuestLayout() {
         <div className="w-full max-w-md space-y-8">
           <div>
             <img
-              className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              className="mx-auto h-20 w-auto"
+              src={Logo}
               alt="Surveys INC"
             />
           </div>
