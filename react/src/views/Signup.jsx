@@ -41,7 +41,7 @@ export default function Signup() {
   return (
     <>
       <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-        Signup for free
+        Sign up for free.
       </h2>
       <p className="mt-2 text-center text-sm text-gray-600">
         Or{" "}

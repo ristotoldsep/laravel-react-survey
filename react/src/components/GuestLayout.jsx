@@ -17,7 +17,7 @@ export default function GuestLayout() {
             <img
               className="mx-auto h-20 w-auto"
               src={Logo}
-              alt="Surveys INC"
+              alt="RT Surveys"
             />
           </div>
 

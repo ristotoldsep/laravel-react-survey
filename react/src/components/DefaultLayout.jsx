@@ -8,6 +8,7 @@ import {
 import { NavLink, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 import axiosClient from "../axios";
+import Logo from '../assets/rtlogo.webp'
 
 const navigation = [
   { name: "Dashboard", to: "/" },
@@ -27,7 +28,7 @@ export default function DefaultLayout() {
 
   const logout = (ev) => {
     ev.preventDefault();
-    
+
     axiosClient.post('/logout')
       .then((res) => {
         setCurrentUser({});
@@ -49,7 +50,7 @@ export default function DefaultLayout() {
                     <div className="flex-shrink-0">
                       <img
                         className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                        src={Logo}
                         alt="Your Company"
                       />
                     </div>
